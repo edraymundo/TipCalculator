@@ -18,6 +18,7 @@
 - (IBAction)onTap:(id)sender;
 - (void)updateValues;
 
+- (IBAction)onTap2:(id)sender;
 
 @end
 
@@ -59,6 +60,12 @@
     
     self.tipLabel.text = [NSString stringWithFormat:@"$%0.2f",tipAmount];
     self.totalLabel.text = [NSString stringWithFormat:@"$%0.2f",totalAmount];
+}
+
+- (IBAction)onTap2:(id)sender {
+    NSLog(@"im in");
+    [self.view endEditing:YES];
+    [self updateValues];
 }
 
 - (void)onSettingsButton {
