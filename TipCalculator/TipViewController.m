@@ -17,8 +17,8 @@
 
 - (IBAction)onTap:(id)sender;
 - (void)updateValues;
+//- (void)initValues;
 
-- (IBAction)onTap2:(id)sender;
 
 @end
 
@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(onSettingsButton)];
-   
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,11 +62,6 @@
     self.totalLabel.text = [NSString stringWithFormat:@"$%0.2f",totalAmount];
 }
 
-- (IBAction)onTap2:(id)sender {
-    NSLog(@"im in");
-    [self.view endEditing:YES];
-    [self updateValues];
-}
 
 - (void)onSettingsButton {
  [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
@@ -77,7 +72,10 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"view did appear");
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int intValue = [defaults integerForKey:@"defaultTipIndex"];
+    self.tipControl.selectedSegmentIndex = intValue;
+    [self updateValues];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

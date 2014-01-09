@@ -10,6 +10,10 @@
 
 @interface SettingsViewController ()
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *defaultPercentage;
+
+- (IBAction)onTap:(id)sender;
+
 @end
 
 @implementation SettingsViewController
@@ -26,6 +30,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    int intValue = [defaults integerForKey:@"defaultTipIndex"];
+    self.defaultPercentage.selectedSegmentIndex = intValue;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -34,5 +41,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (IBAction)onTap:(id)sender {
+    [self.view endEditing:YES];
+    int tipIndex = self.defaultPercentage.selectedSegmentIndex;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:tipIndex forKey:@"defaultTipIndex"];
+    [defaults synchronize];
+    
+}
+
 
 @end
